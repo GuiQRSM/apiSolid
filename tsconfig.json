@@ -11,6 +11,9 @@
     "target": "es2024",
     "types": [],
     "baseUrl": "./",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
