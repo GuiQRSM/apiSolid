@@ -1,6 +1,7 @@
-//  separação de responsabilidades da lógica de negócio em um use-case
+//  separação de responsabilidades da lógica de negócio em um use-case para reaproveitar a lógica de registro de usuário
 
 import { prisma } from '@/lib/prisma.ts'
+import { PrismaUsersRepository } from '@/repositories/prisma-users-repository.ts'
 import { hash } from 'bcryptjs'
 
 interface RegisterUseCaseRequest {
@@ -26,11 +27,13 @@ export async function registerUseCase({
     throw new Error('E-mail already registered.')
   }
 
-  await prisma.user.create({
-    data: {
-      name,
-      email,
-      password_hash,
-    },
+  //  instanciação do repositório de usuários
+
+  const prismaUsersRepository = new PrismaUsersRepository()
+
+  prismaUsersRepository.create({
+    name,
+    email,
+    password_hash,
   })
 }
