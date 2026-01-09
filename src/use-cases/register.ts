@@ -1,3 +1,5 @@
+//  separação de responsabilidades da lógica de negócio em um use-case
+
 import { prisma } from '@/lib/prisma.ts'
 import { hash } from 'bcryptjs'
 

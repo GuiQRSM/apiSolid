@@ -1,3 +1,5 @@
+//  inicializa e inicia o servidor HTTP usando Fastify
+
 import { env } from '../env/index.ts'
 import { app } from './app.ts'
 

@@ -1,3 +1,5 @@
+// objeto de conexão com o banco de dados usando Prisma ORM
+
 import { PrismaClient } from '@prisma/client'
 import { env } from 'env/index.ts'
 

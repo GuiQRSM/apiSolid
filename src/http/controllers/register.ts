@@ -1,3 +1,5 @@
+//  responsável por lidar apenas com as requisições HTTP de registro de usuário
+
 import type { FastifyRequest, FastifyReply } from 'fastify'
 import z from 'zod'
 import { registerUseCase } from '@/use-cases/register.ts'
