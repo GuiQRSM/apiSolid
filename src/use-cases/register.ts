@@ -1,7 +1,6 @@
 //  separação de responsabilidades da lógica de negócio em um use-case para reaproveitar a lógica de registro de usuário
 
 import { prisma } from '@/lib/prisma.ts'
-import { PrismaUsersRepository } from '@/repositories/prisma-users-repository.ts'
 import { hash } from 'bcryptjs'
 
 interface RegisterUseCaseRequest {
@@ -10,7 +9,7 @@ interface RegisterUseCaseRequest {
   password: string
 }
 
-class RegisterUseCase {
+export class RegisterUseCase {
   constructor(private usersRepository: any) {}
 
   async execute({ name, email, password }: RegisterUseCaseRequest) {
@@ -28,9 +27,7 @@ class RegisterUseCase {
 
     //  instanciação do repositório de usuários
 
-    const prismaUsersRepository = new PrismaUsersRepository()
-
-    prismaUsersRepository.create({
+    this.usersRepository.create({
       name,
       email,
       password_hash,
