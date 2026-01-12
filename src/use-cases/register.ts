@@ -1,6 +1,5 @@
 //  separação de responsabilidades da lógica de negócio em um use-case para reaproveitar a lógica de registro de usuário
 
-import { prisma } from '@/lib/prisma.ts'
 import { hash } from 'bcryptjs'
 import { type UsersRepository } from '@/repositories/users-repositories.ts'
 
@@ -19,11 +18,8 @@ export class RegisterUseCase {
   async execute({ name, email, password }: RegisterUseCaseRequest) {
     const password_hash = await hash(password, 6)
 
-    const userWithSameEmail = await prisma.user.findUnique({
-      where: {
-        email,
-      },
-    })
+    //  verificação se já existe um usuário com o mesmo e-mail
+    const userWithSameEmail = await this.usersRepository.findByEmail(email)
 
     if (userWithSameEmail) {
       throw new Error('E-mail already registered.')
