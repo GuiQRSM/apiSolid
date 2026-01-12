@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/prisma.ts'
 import { hash } from 'bcryptjs'
+import { type UsersRepository } from '@/repositories/users-repositories.ts'
 
 interface RegisterUseCaseRequest {
   name: string
@@ -12,7 +13,8 @@ interface RegisterUseCaseRequest {
 //  use-case responsável pela lógica de registro de usuário
 // dependencia reversal: o use-case depende de uma abstração (repositório de usuários) e não de uma implementação concreta
 export class RegisterUseCase {
-  constructor(private usersRepository: any) {}
+  // injeção de dependência do repositório de usuários
+  constructor(private usersRepository: UsersRepository) {}
 
   async execute({ name, email, password }: RegisterUseCaseRequest) {
     const password_hash = await hash(password, 6)
