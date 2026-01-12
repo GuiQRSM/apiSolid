@@ -9,6 +9,8 @@ interface RegisterUseCaseRequest {
   password: string
 }
 
+//  use-case responsável pela lógica de registro de usuário
+// dependencia reversal: o use-case depende de uma abstração (repositório de usuários) e não de uma implementação concreta
 export class RegisterUseCase {
   constructor(private usersRepository: any) {}
 
@@ -34,3 +36,6 @@ export class RegisterUseCase {
     })
   }
 }
+
+//  O DIP propõe que as camadas mais altas de uma aplicação não dependam diretamente das camadas mais baixas, mas sim de uma abstração entre elas. Isso permite maior flexibilidade e facilidade de manutenção do código
+// Ao depender de uma abstração (repositório de usuários), o use-case não está acoplado a uma implementação específica, facilitando testes e futuras mudanças na forma como os dados são armazenados ou recuperados
