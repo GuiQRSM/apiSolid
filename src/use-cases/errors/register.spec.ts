@@ -7,10 +7,12 @@ describe('Registet UseCase', () => {
     const prismaUserRepository = new PrismaUsersRepository()
     const registerUseCase = new RegisterUseCase(prismaUserRepository)
 
-    await registerUseCase.execute({
+    const { user } = await registerUseCase.execute({
       name: 'User test',
       email: 'usertest@example.com',
       password: '123456',
     })
+
+    console.log(user.password_hash)
   })
 })
