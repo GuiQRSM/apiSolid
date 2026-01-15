@@ -28,11 +28,15 @@ export class RegisterUseCase {
 
     //  instanciação do repositório de usuários
 
-    this.usersRepository.create({
+    const user = this.usersRepository.create({
       name,
       email,
       password_hash,
     })
+
+    return {
+      user,
+    }
   }
 }
 
