@@ -37,7 +37,7 @@ export class RegisterUseCase {
 
     //  instanciação do repositório de usuários
 
-    const user = this.usersRepository.create({
+    const user = await this.usersRepository.create({
       name,
       email,
       password_hash,
