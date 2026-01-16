@@ -2,6 +2,7 @@ import { expect, describe, it } from 'vitest'
 import { RegisterUseCase } from '../register.ts'
 import { compare } from 'bcryptjs'
 import { InMemoryUsersReposity } from '@/repositories/in-memory/in-memory-users-repositorie.ts'
+import { UserAlreadyExistsError } from './user-already-exists.ts'
 
 describe('Registet UseCase', () => {
   it('should hash user password upon registration', async () => {
@@ -21,6 +22,29 @@ describe('Registet UseCase', () => {
     )
 
     expect(isPasswordCorrectlyHashed).toBe(true)
+  })
+
+  // teste para verificar se não é possível registrar dois usuários com o mesmo email
+  it('should not be able to register with same email twice', async () => {
+    // instância do repositório de usuários em memória
+    const UsersRepository = new InMemoryUsersReposity()
+    const registerUseCase = new RegisterUseCase(UsersRepository)
+
+    const email = 'testeemail@gmail.com'
+
+    await registerUseCase.execute({
+      name: 'User test',
+      email,
+      password: '123456',
+    })
+
+    expect(() =>
+      registerUseCase.execute({
+        name: 'User test',
+        email,
+        password: '123456',
+      }),
+    ).rejects.toBeInstanceOf(UserAlreadyExistsError)
   })
 })
 // teste para verificar se a senha do usuário é corretamente hasheada durante o registro
