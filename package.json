@@ -10,7 +10,8 @@
     "build": "tsup src --out-dir build",
     "strat": "node build/server.js",
     "test:run": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:coverage": "vitest --coverage"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,7 @@
     "@rocketseat/eslint-config": "2.2.2",
     "@types/bcryptjs": "2.4.6",
     "@types/node": "^24.10.1",
+    "@vitest/coverage-v8": "4.0.17",
     "eslint": "8.57.1",
     "tsup": "^8.5.1",
     "tsx": "^4.21.0",
