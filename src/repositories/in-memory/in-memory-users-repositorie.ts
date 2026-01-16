@@ -22,7 +22,7 @@ export class InMemoryUsersReposity implements UsersRepository {
       id: 'user-1',
       name: data.name,
       email: data.email,
-      password_hash: data.password_hash,
+      password_hash: data.password_hash as string,
       created_at: new Date(),
     }
 
