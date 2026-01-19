@@ -30,5 +30,10 @@ export class AuthenticateUseCase {
     if (!doesPasswordMatches) {
       throw new InvalidCredentialsError()
     }
+
+    // autenticação bem-sucedida
+    return {
+      user,
+    }
   }
 }
