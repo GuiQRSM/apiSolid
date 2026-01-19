@@ -5,9 +5,14 @@ interface AuthenticateUseCaseRequest {
   password: string
 }
 
+interface AuthenticateUSeCaseResponse {}
+
 export class AuthenticateUseCase {
   // injeção de dependência do repositório de usuários
   constructor(private usersRepository: UsersRepository) {}
 
-  async execute({ email, password }: AuthenticateUseCaseRequest) {}
+  async execute({
+    email,
+    password,
+  }: AuthenticateUseCaseRequest): Promise<AuthenticateUSeCaseResponse> {}
 }
