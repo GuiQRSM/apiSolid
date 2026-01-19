@@ -1,4 +1,6 @@
 import type { UsersRepository } from '@/repositories/users-repositories.ts'
+import { InvalidCredentialsError } from './errors/invalid-credentials-error.ts'
+import { compare } from 'bcryptjs'
 
 interface AuthenticateUseCaseRequest {
   email: string
@@ -17,7 +19,16 @@ export class AuthenticateUseCase {
   }: AuthenticateUseCaseRequest): Promise<AuthenticateUSeCaseResponse> {
     const user = await this.usersRepository.findByEmail(email)
 
-    if (user) {
+    // verifica se o usuário existe
+    if (!user) {
+      throw new InvalidCredentialsError()
+    }
+
+    // verifica se a senha está correta
+    const doesPasswordMatches = await compare(password, user.password_hash)
+
+    if (!doesPasswordMatches) {
+      throw new InvalidCredentialsError()
     }
   }
 }
