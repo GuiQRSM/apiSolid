@@ -3,3 +3,4 @@ build
 .eslintrc.json
 .env
 /generated/prisma
+coverage
