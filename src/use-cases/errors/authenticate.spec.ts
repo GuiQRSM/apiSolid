@@ -14,7 +14,7 @@ describe('Authenticate UseCase', () => {
     await UsersRepository.create({
       name: 'User test',
       email: 'usertest@example.com',
-      password_hash: await hash('1123456', 6),
+      password_hash: await hash('123456', 6),
     })
 
     const { user } = await sut.execute({
@@ -22,6 +22,6 @@ describe('Authenticate UseCase', () => {
       password: '123456',
     })
 
-    expect(user.id).toEqual(expect.any(String))
+    await expect(user.id).toEqual(expect.any(String))
   })
 })
