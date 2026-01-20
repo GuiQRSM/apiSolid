@@ -18,7 +18,6 @@ describe('Authenticate UseCase', () => {
     })
 
     const { user } = await sut.execute({
-      name: 'User test',
       email: 'usertest@example.com',
       password: '123456',
     })
