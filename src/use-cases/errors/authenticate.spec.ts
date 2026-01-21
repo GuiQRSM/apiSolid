@@ -1,4 +1,4 @@
-import { expect, describe, it } from 'vitest'
+import { expect, describe, it, beforeEach } from 'vitest'
 import { InMemoryUsersReposity } from '@/repositories/in-memory/in-memory-users-repositorie.ts'
 import { AuthenticateUseCase } from '../authenticate.ts'
 import { hash } from 'bcryptjs'
@@ -6,12 +6,17 @@ import { InvalidCredentialsError } from './invalid-credentials-error.ts'
 
 // teste para o caso de uso de autenticação
 describe('Authenticate UseCase', () => {
+  let UsersRepository: InMemoryUsersReposity
+  let sut: AuthenticateUseCase
+
+  // configuração antes de cada teste chamando instance do repositório em memória e do use-case de autenticação
+  beforeEach(() => {
+    UsersRepository = new InMemoryUsersReposity()
+    sut = new AuthenticateUseCase(UsersRepository)
+  })
+
   // teste para verificar se é possível autenticar um usuário com credenciais válidas
   it('should be able to authenticate', async () => {
-    // instância do repositório de usuários em memória
-    const UsersRepository = new InMemoryUsersReposity()
-    const sut = new AuthenticateUseCase(UsersRepository)
-
     await UsersRepository.create({
       name: 'User test',
       email: 'usertest@example.com',
@@ -28,10 +33,6 @@ describe('Authenticate UseCase', () => {
 
   // teste para verificar se não é possível autenticar com emial errada
   it('should be able to authenticate with wrong email', async () => {
-    // instância do repositório de usuários em memória
-    const UsersRepository = new InMemoryUsersReposity()
-    const sut = new AuthenticateUseCase(UsersRepository)
-
     // criando um usuário no repositório em memória
     await expect(() =>
       sut.execute({
@@ -43,10 +44,6 @@ describe('Authenticate UseCase', () => {
 
   // teste para verificar se não é possível autenticar com senha errada
   it('should be able to authenticate with wrong password', async () => {
-    // instância do repositório de usuários em memória
-    const UsersRepository = new InMemoryUsersReposity()
-    const sut = new AuthenticateUseCase(UsersRepository)
-
     // criando um usuário no repositório em memória
     await UsersRepository.create({
       name: 'User test',
