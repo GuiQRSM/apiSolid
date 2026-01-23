@@ -5,6 +5,16 @@ import type { UsersRepository } from '../users-repositories.ts'
 export class InMemoryUsersReposity implements UsersRepository {
   public items: User[] = []
 
+  // procurar um usuário pelo ID
+  async findById(id: string): Promise<User | null> {
+    const user = this.items.find((item) => item.id === id)
+    if (!user) {
+      return null
+    }
+
+    return user
+  }
+
   // procurar um usuário pelo email
   async findByEmail(email: string) {
     const user = this.items.find((item) => item.email === email)
