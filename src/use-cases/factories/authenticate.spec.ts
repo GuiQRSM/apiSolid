@@ -2,7 +2,7 @@ import { expect, describe, it, beforeEach } from 'vitest'
 import { InMemoryUsersReposity } from '@/repositories/in-memory/in-memory-users-repositorie.ts'
 import { AuthenticateUseCase } from '../authenticate.ts'
 import { hash } from 'bcryptjs'
-import { InvalidCredentialsError } from './invalid-credentials-error.ts'
+import { InvalidCredentialsError } from '../errors/invalid-credentials-error.ts'
 
 // teste para o caso de uso de autenticação
 describe('Authenticate UseCase', () => {
