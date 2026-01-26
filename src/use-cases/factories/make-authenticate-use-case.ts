@@ -1,7 +1,7 @@
 import { PrismaUsersRepository } from '@/repositories/prisma/prisma-users-repository.ts'
 import { AuthenticateUseCase } from '../authenticate.ts'
 
-// fábrica para criar uma instância do use-case de autenticação
+// factory para criar uma instância do use-case de autenticação
 export function makeAuthenticateUseCase() {
   //  instanciação do repositório de usuários
   const prismaUsersRepository = new PrismaUsersRepository()

@@ -1,7 +1,7 @@
 import { PrismaUsersRepository } from '@/repositories/prisma/prisma-users-repository.ts'
 import { RegisterUseCase } from '../register.ts'
 
-// fábrica para criar uma instância do use-case de registro de usuário
+// factory para criar uma instância do use-case de registro de usuário
 export function makeRegisterUseCase() {
   //  instanciação do repositório de usuários
   const prismaUsersRepository = new PrismaUsersRepository()
