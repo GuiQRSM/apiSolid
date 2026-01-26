@@ -1,6 +1,6 @@
 import { InMemoryCheckInsReposity } from '@/repositories/in-memory/in-memory-check-ins-repository.ts'
 import { expect, describe, it, beforeEach } from 'vitest'
-import { CheckinUseCase } from '../checkin.ts'
+import { CheckinUseCase } from '../check-in.ts'
 
 describe('Register CheckIn', () => {
   let CheckInsRepository: InMemoryCheckInsReposity
