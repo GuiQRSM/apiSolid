@@ -22,14 +22,10 @@ describe('Register CheckIn', () => {
 
   // teste para verificar se é possível registrar um novo check-in
   it('should be able to check in', async () => {
-    vi.setSystemTime(new Date(2009, 6, 8, 13, 0, 0)) // definindo a data e hora do mock para 8 de julho de 2009, 13:00:00
-
     const { checkIn } = await sut.execute({
       gymId: 'gym-01',
       userId: 'user-01',
     })
-
-    console.log(checkIn.created_at)
 
     // asserção para garantir que o check-in foi criado com um ID válido
     expect(checkIn.id).toEqual(expect.any(String))
@@ -37,6 +33,8 @@ describe('Register CheckIn', () => {
 
   // teste para verificar se não é possível registrar dois check-ins no mesmo dia
   it('should be not able to check in twice in the same day', async () => {
+    vi.setSystemTime(new Date(2009, 6, 8, 13, 0, 0)) // definindo a data e hora do mock para 8 de julho de 2009, 13:00:00
+
     await sut.execute({
       gymId: 'gym-01',
       userId: 'user-01',
