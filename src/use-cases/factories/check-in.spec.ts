@@ -77,12 +77,15 @@ describe('Register CheckIn', () => {
 
     // avançando o tempo para o próximo dia
     vi.setSystemTime(new Date(2009, 6, 9, 13, 0, 0))
-    expect(() =>
-      sut.execute({
-        gymId: 'gym-01',
-        userId: 'user-01',
-      }),
-    ).rejects.toBeInstanceOf(Error)
+
+    // execução do check-in no dia seguinte
+    const { checkIn } = await sut.execute({
+      gymId: 'gym-01',
+      userId: 'user-01',
+    })
+
+    // asserção para garantir que o check-in foi criado com um ID válido
+    expect(checkIn.id).toEqual(expect.any(String))
   })
 })
 
