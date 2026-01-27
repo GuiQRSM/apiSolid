@@ -48,6 +48,42 @@ describe('Register CheckIn', () => {
       }),
     ).rejects.toBeInstanceOf(Error)
   })
+
+  it('should be not able to check in twice in the same day', async () => {
+    vi.setSystemTime(new Date(2009, 6, 8, 13, 0, 0)) // definindo a data e hora do mock para 8 de julho de 2009, 13:00:00
+
+    await sut.execute({
+      gymId: 'gym-01',
+      userId: 'user-01',
+    })
+
+    // asserção para garantir que o check-in não foi criado novamente no mesmo dia
+    expect(() =>
+      sut.execute({
+        gymId: 'gym-01',
+        userId: 'user-01',
+      }),
+    ).rejects.toBeInstanceOf(Error)
+  })
+
+  // teste para verificar se é possível registrar check-ins em dias diferentes
+  it('should be not able to check in twice but in the different day', async () => {
+    vi.setSystemTime(new Date(2009, 6, 8, 13, 0, 0)) // definindo a data e hora do mock para 8 de julho de 2009, 13:00:00
+
+    await sut.execute({
+      gymId: 'gym-01',
+      userId: 'user-01',
+    })
+
+    // avançando o tempo para o próximo dia
+    vi.setSystemTime(new Date(2009, 6, 9, 13, 0, 0))
+    expect(() =>
+      sut.execute({
+        gymId: 'gym-01',
+        userId: 'user-01',
+      }),
+    ).rejects.toBeInstanceOf(Error)
+  })
 })
 
 // teste para verificar se o check-in é criado corretamente
