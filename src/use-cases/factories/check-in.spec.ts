@@ -1,5 +1,5 @@
 import { InMemoryCheckInsReposity } from '@/repositories/in-memory/in-memory-check-ins-repository.ts'
-import { expect, describe, it, beforeEach } from 'vitest'
+import { expect, describe, it, beforeEach, vi, afterEach } from 'vitest'
 import { CheckinUseCase } from '../check-in.ts'
 
 describe('Register CheckIn', () => {
@@ -10,6 +10,14 @@ describe('Register CheckIn', () => {
   beforeEach(() => {
     CheckInsRepository = new InMemoryCheckInsReposity()
     sut = new CheckinUseCase(CheckInsRepository)
+
+    // configuração do uso de timers falsos para manipulação de datas nos testes
+    vi.useFakeTimers()
+  })
+
+  afterEach(() => {
+    // restauração do uso de timers reais após cada teste
+    vi.useRealTimers()
   })
 
   // teste para verificar se é possível registrar um novo check-in
@@ -18,6 +26,8 @@ describe('Register CheckIn', () => {
       gymId: 'gym-01',
       userId: 'user-01',
     })
+
+    console.log(checkIn.created_at)
 
     // asserção para garantir que o check-in foi criado com um ID válido
     expect(checkIn.id).toEqual(expect.any(String))
