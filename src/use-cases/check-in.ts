@@ -21,11 +21,13 @@ export class CheckinUseCase {
     userId,
     gymId,
   }: CheckinUseCaseRequest): Promise<CheckinUseCaseResponse> {
+    // Verificação se o usuário já realizou um check-in no mesmo dia
     const checkInOnSameDay = await this.checkinsRepository.findByUsesrIdOnDate(
       userId,
       new Date(),
     )
 
+    // Lançamento de erro se o usuário já tiver feito check-in hoje
     if (checkInOnSameDay) {
       throw new Error('User has already checked in today.')
     }
