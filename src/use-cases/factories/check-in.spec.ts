@@ -2,6 +2,7 @@ import { InMemoryCheckInsReposity } from '@/repositories/in-memory/in-memory-che
 import { expect, describe, it, beforeEach, vi, afterEach } from 'vitest'
 import { CheckinUseCase } from '../check-in.ts'
 import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository.ts'
+import { Decimal } from '@prisma/client/runtime/library'
 
 describe('Register CheckIn', () => {
   let checkInsRepository: InMemoryCheckInsReposity
@@ -15,6 +16,16 @@ describe('Register CheckIn', () => {
 
     // configuração do uso de timers falsos para manipulação de datas nos testes
     vi.useFakeTimers()
+
+    // criação de uma academia de teste no repositório em memória
+    gymsRepository.items.push({
+      id: 'gym-01',
+      title: 'JavaScript Gym',
+      description: null,
+      phone: null,
+      latitude: new Decimal(0),
+      longitude: new Decimal(0),
+    })
   })
 
   afterEach(() => {
