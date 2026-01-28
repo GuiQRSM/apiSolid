@@ -1,5 +1,6 @@
 import type { CheckIn } from '@prisma/client'
 import type { CheckinsRepository } from '@/repositories/check-ins-repository.ts'
+import type { GymRepository } from '@/repositories/gyms-repositories.ts'
 
 // Definição da interface para os dados de entrada do caso de uso de check-in
 interface CheckinUseCaseRequest {
@@ -16,7 +17,10 @@ interface CheckinUseCaseResponse {
 
 // Implementação do caso de uso de check-in
 export class CheckinUseCase {
-  constructor(private checkinsRepository: CheckinsRepository) {}
+  constructor(
+    private checkinsRepository: CheckinsRepository,
+    private gymsRepository: GymRepository,
+  ) {}
 
   // Método para executar o caso de uso de check-in
   async execute({
