@@ -5,6 +5,8 @@ import type { CheckinsRepository } from '@/repositories/check-ins-repository.ts'
 interface CheckinUseCaseRequest {
   userId: string
   gymId: string
+  userLatitude: number
+  userLongitude: number
 }
 
 // Definição da interface para os dados de saída do caso de uso de check-in
