@@ -1,7 +1,6 @@
 import type { CheckIn } from '@prisma/client'
 import type { CheckinsRepository } from '@/repositories/check-ins-repository.ts'
 import type { GymRepository } from '@/repositories/gyms-repositories.ts'
-import { th } from 'zod/locales'
 import { ResourceNotFoundError } from './errors/resource-not-found-error.ts'
 
 // Definição da interface para os dados de entrada do caso de uso de check-in

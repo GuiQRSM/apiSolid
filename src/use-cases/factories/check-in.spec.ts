@@ -1,15 +1,17 @@
 import { InMemoryCheckInsReposity } from '@/repositories/in-memory/in-memory-check-ins-repository.ts'
 import { expect, describe, it, beforeEach, vi, afterEach } from 'vitest'
 import { CheckinUseCase } from '../check-in.ts'
+import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository.ts'
 
 describe('Register CheckIn', () => {
-  let CheckInsRepository: InMemoryCheckInsReposity
+  let checkInsRepository: InMemoryCheckInsReposity
+  let gymsRepository: InMemoryGymsRepository
   let sut: CheckinUseCase
-
   // configuração antes de cada teste chamando instance do repositório em memória e do use-case de check-in
   beforeEach(() => {
-    CheckInsRepository = new InMemoryCheckInsReposity()
-    sut = new CheckinUseCase(CheckInsRepository)
+    checkInsRepository = new InMemoryCheckInsReposity()
+    gymsRepository = new InMemoryGymsRepository()
+    sut = new CheckinUseCase(checkInsRepository, gymsRepository)
 
     // configuração do uso de timers falsos para manipulação de datas nos testes
     vi.useFakeTimers()
@@ -25,6 +27,8 @@ describe('Register CheckIn', () => {
     const { checkIn } = await sut.execute({
       gymId: 'gym-01',
       userId: 'user-01',
+      userLatitude: 59.1908331,
+      userLongitude: -2.7043898,
     })
 
     // asserção para garantir que o check-in foi criado com um ID válido
@@ -38,6 +42,8 @@ describe('Register CheckIn', () => {
     await sut.execute({
       gymId: 'gym-01',
       userId: 'user-01',
+      userLatitude: 59.1908331,
+      userLongitude: -2.7043898,
     })
 
     // asserção para garantir que o check-in não foi criado novamente no mesmo dia
@@ -45,6 +51,8 @@ describe('Register CheckIn', () => {
       sut.execute({
         gymId: 'gym-01',
         userId: 'user-01',
+        userLatitude: 59.1908331,
+        userLongitude: -2.7043898,
       }),
     ).rejects.toBeInstanceOf(Error)
   })
@@ -55,6 +63,8 @@ describe('Register CheckIn', () => {
     await sut.execute({
       gymId: 'gym-01',
       userId: 'user-01',
+      userLatitude: 59.1908331,
+      userLongitude: -2.7043898,
     })
 
     // asserção para garantir que o check-in não foi criado novamente no mesmo dia
@@ -62,6 +72,8 @@ describe('Register CheckIn', () => {
       sut.execute({
         gymId: 'gym-01',
         userId: 'user-01',
+        userLatitude: 59.1908331,
+        userLongitude: -2.7043898,
       }),
     ).rejects.toBeInstanceOf(Error)
   })
@@ -73,6 +85,8 @@ describe('Register CheckIn', () => {
     await sut.execute({
       gymId: 'gym-01',
       userId: 'user-01',
+      userLatitude: 59.1908331,
+      userLongitude: -2.7043898,
     })
 
     // avançando o tempo para o próximo dia
@@ -82,6 +96,8 @@ describe('Register CheckIn', () => {
     const { checkIn } = await sut.execute({
       gymId: 'gym-01',
       userId: 'user-01',
+      userLatitude: 59.1908331,
+      userLongitude: -2.7043898,
     })
 
     // asserção para garantir que o check-in foi criado com um ID válido
